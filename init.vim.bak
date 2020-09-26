@@ -1,0 +1,702 @@
+if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+  echo "Downloading junegunn/vim-plug to manage plugins..."
+  silent !mkdir -p ~/.config/nvim/autoload/
+  silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+" Fuzzy find
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
+" Simple dark theme
+Plug 'tek256/simple-dark'
+" Gruvbox colorscheme
+Plug 'gruvbox-community/gruvbox'
+" Floating terminal
+Plug 'voldikss/vim-floaterm'
+" for flutter development
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/diagnostic-nvim' " wrap LSP diagnostic config
+Plug 'pierreglaser/folding-nvim', { 'for': ['lua', 'c', 'cpp', 'go'] } " LSP-powered folding
+Plug 'nvim-lua/lsp-status.nvim'  " lsp items in the statusbar
+Plug 'nvim-treesitter/nvim-treesitter' " tree-sitter support
+" Completion sources
+Plug 'nvim-lua/completion-nvim'
+Plug 'steelsojka/completion-buffers'
+Plug 'nvim-treesitter/completion-treesitter' " tree-sitter source for completion-nvim
+" Plugin for golang development
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'Chiel92/vim-autoformat'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Snippets
+" Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+" To track time
+Plug 'wakatime/vim-wakatime'
+" One dark theme
+Plug 'joshdick/onedark.vim'
+Plug 'tomasiser/vim-code-dark'
+" For Comments
+Plug 'tpope/vim-commentary'
+" Opening and closing pairs
+Plug 'jiangmiao/auto-pairs'
+" Funky icons
+Plug 'ryanoasis/vim-devicons'
+" Easy surrouding things
+Plug 'tpope/vim-surround'
+" To show colors like #C4C4C4
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Better start screen
+"Plug 'mhinz/vim-startify'
+" Git plugins
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'liuchengxu/vim-which-key'
+Plug 'brooth/far.vim'
+Plug 'jremmen/vim-ripgrep'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-repeat'
+Plug 'lambdalisue/fern.vim'
+
+call plug#end()
+
+" General configurations
+set iskeyword+=-                        " treat dash separated words as a word text object"
+set formatoptions-=cro                  " Stop newline continution of comments
+syntax enable                           " Enables syntax highlighing
+set hidden                              " Required to keep multiple buffers open multiple buffers
+set wrap                              " Display long lines as just one line
+set encoding=utf-8                      " The encoding displayed
+set pumheight=10                        " Makes popup menu smaller
+set fileencoding=utf-8                  " The encoding written to file
+set ruler                               " Show the cursor position all the time
+set cmdheight=2                         " More space for displaying messages
+set mouse=a                             " Enable your mouse
+set splitbelow                          " Horizontal splits will automatically be below
+set splitright                          " Vertical splits will automatically be to the right
+set t_Co=256                            " Support 256 colors
+set conceallevel=0                      " So that I can see `` in markdown files
+set tabstop=2                           " Insert 2 spaces for a tab
+set shiftwidth=2                        " Change the number of space characters inserted for indentation
+set softtabstop=2
+set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
+set expandtab                           " Converts tabs to spaces
+set smartindent                         " Makes indenting smart
+set autoindent                          " Good auto indent
+set laststatus=2                        " Always display the status line
+set number                              " Line numbers
+set relativenumber
+"set cursorline                          " Enable highlighting of the current line
+"set cursorcolumn
+set showtabline=2                       " Always show tabs
+set noshowmode                          " We don't need to see things like -- INSERT -- anymore
+set nobackup                            " This is recommended by coc
+set nowritebackup                       " This is recommended by coc
+set shortmess+=c                        " Don't pass messages to |ins-completion-menu|.
+set signcolumn=yes                      " Always show the signcolumn, otherwise it would shift the text each time
+set updatetime=300                      " Faster completion
+"set timeoutlen=100                      " By default timeoutlen is 1000 ms
+set clipboard^=unnamed,unnamedplus               " Copy paste between vim and everything else
+set incsearch
+set termguicolors
+set colorcolumn=80
+
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_invert_selection='0'
+set background=dark
+"colorscheme onedark
+"colorscheme codedark
+
+" Simple keybindings for sanity's sake
+nnoremap :W<cr> :w<cr>
+nnoremap <C-s> :w<cr>
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <leader>y <esc>ggVGy<CR>
+
+" FZF Config
+nnoremap <C-p> :Files<cr>
+nnoremap <C-b> :Buffers<cr>
+nnoremap <C-g> :Rg<cr>
+let g:fzf_preview_window = ''
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
+" Clang Format config
+let g:clang_format#auto_format = 1
+let g:clang_format#code_style = "LLVM"
+let g:clang_format#style_options = {
+      \ "AllowShortIfStatementsOnASingleLine" : "false",
+      \ "IndentCaseLabels" : "true",
+      \ "IndentWidth" : 2,
+      \ "PointerAlignment" : "Left",
+      \ "TabWidth" : 2,
+      \ "AlignConsecutiveMacros" : "true",
+      \ "AlignConsecutiveAssignments" : "true",
+      \ "AlignConsecutiveDeclarations" : "true",
+      \ "AlignEscapedNewlines" : "true",
+      \ "AlignTrailingComments" : "true",
+      \ "AlignOperands" : "true",
+      \ "AllowShortBlocksOnASingleLine" : "true",
+      \ "AllowShortFunctionsOnASingleLine" : "true",
+      \ "ColumnLimit" : 80,
+      \ "KeepEmptyLinesAtTheStartOfBlocks" : "false",
+      \ "SortIncludes" : "false",
+      \ "SpaceAfterCStyleCast" :"false" }
+
+" Move .viminfo file to ~/.vim/cache/.viminfo
+if &compatible | set nocompatible | endif
+set viminfo=%,<800,'10,/50,:100,h,f0,n~/.vim/cache/.viminfo
+
+filetype plugin on
+let mapleader=" "
+nnoremap <Space> <Nop>
+
+" FloatTerm
+let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_next   = '<F2>'
+let g:floaterm_keymap_prev   = '<F3>'
+let g:floaterm_keymap_new    = '<F4>'
+let g:floaterm_gitcommit='floaterm'
+let g:floaterm_autoinsert=1
+let g:floaterm_width=0.8
+let g:floaterm_height=0.8
+let g:floaterm_wintitle=0
+let g:floaterm_autoclose=1
+
+" For cp
+autocmd filetype cpp nnoremap ,c :w <bar> !g++ -ulimit -Wall -Wno-unused-result -std=c++11 -O2 % -o %:r && ./%:r <CR>
+autocmd BufNewFile *.cpp -r ~/template.cpp
+
+" Vertically center document when entering insert mode
+autocmd InsertEnter * norm zz
+
+" Fix indenting visual block
+vmap < <gv
+vmap > >gv
+
+" enable tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+let airline#extensions#tabline#show_splits = 0
+let airline#extensions#tabline#tabs_label = ''
+let airline#extensions#wordcount#enabled = 1
+
+" Disable tabline close button
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#fnamecollapse = 1
+
+let g:airline#extensions#tabline#buffers_label = ''
+let g:airline#extensions#tabline#tabs_label = ''
+
+" Just show the file name
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" enable powerline fonts
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+call airline#parts#define_function('lsp', 'LspStatus')
+let g:airline_section_y = airline#section#create_right(['lsp'])
+
+
+" Switch to your current theme
+let g:airline_theme = 'gruvbox'
+
+" Always show tabs
+set showtabline=2
+
+" We don't need to see things like -- INSERT -- anymore
+set noshowmode
+
+" Sections
+" let g:airline_section_c = ''
+let g:airline_section_a = "NEOVIM"
+" let g:airline_section_a = ""
+let g:airline_section_y = ''
+let g:webdevicons_enable_airline_tabline = 1
+
+" Simulate same TAB behavior in VSCode
+nmap <Tab> :Tabnext<CR>
+nmap <S-Tab> :Tabprev<CR>
+
+" TAB in general mode will move to next buffer
+nnoremap <silent> <TAB> :bnext<CR>
+" SHIFT-TAB will go back
+nnoremap <silent> <S-TAB> :bprevious<CR>
+
+" Close buffer
+nnoremap <leader>d :bd<CR>
+
+"Map leader to which key
+nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
+
+" Create map to add keys to
+let g:which_key_map =  {}
+" Define a separator
+let g:which_key_sep = '→'
+
+" Coc Search & refactor
+" nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
+" let g:which_key_map['?'] = 'search word'
+
+let g:which_key_use_floating_win = 0
+
+highlight default link WhichKey          Operator
+highlight default link WhichKeySeperator DiffAdded
+highlight default link WhichKeyGroup     Identifier
+highlight default link WhichKeyDesc      Function
+
+
+" Hide status line
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+
+let g:which_key_map['.'] = [ ':e $HOME/.config/nvim/init.vim'                        , 'open init' ]
+let g:which_key_map[';'] = [ ':Commands'                          , 'commands' ]
+let g:which_key_map['='] = [ '<C-W>='                             , 'balance windows' ]
+let g:which_key_map['d'] = [ ':Bdelete'                           , 'delete buffer']
+let g:which_key_map['e'] = [ ':CocCommand explorer'               , 'explorer' ]
+let g:which_key_map['p'] = [ ':Files'                             , 'search files' ]
+let g:which_key_map['q'] = [ 'q'                                  , 'quit' ]
+let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
+let g:which_key_map['u'] = [ ':UndotreeToggle'                    , 'undo tree']
+let g:which_key_map['W'] = [ 'w'                                  , 'write' ]
+let g:which_key_map['z'] = [ 'Goyo'                               , 'zen' ]
+let g:which_key_map['/'] = [ ':call Comment()'                    , 'comment' ]
+
+" Group mappings
+
+" a is for actions
+let g:which_key_map.a = {
+      \ 'name' : '+actions' ,
+      \ 'e' : [':CocCommand explorer'    , 'explorer'],
+      \ 'm' : [':MarkdownPreview'        , 'markdown preview'],
+      \ 'M' : [':MarkdownPreviewStop'    , 'markdown preview stop'],
+      \ 'n' : [':set nonumber!'          , 'line-numbers'],
+      \ 'r' : [':set norelativenumber!'  , 'relative line nums'],
+      \ 's' : [':let @/ = ""'            , 'remove search highlight'],
+      \ 't' : [':FloatermToggle'         , 'terminal'],
+      \ 'w' : [':StripWhitespace'        , 'strip whitespace'],
+      \ }
+
+" b is for buffer
+let g:which_key_map.b = {
+      \ 'name' : '+buffer' ,
+      \ '1' : ['b1'        , 'buffer 1'],
+      \ '2' : ['b2'        , 'buffer 2'],
+      \ 'd' : [':Bdelete'  , 'delete-buffer'],
+      \ 'f' : ['bfirst'    , 'first-buffer'],
+      \ 'h' : ['Startify'  , 'home-buffer'],
+      \ 'l' : ['blast'     , 'last-buffer'],
+      \ 'n' : ['bnext'     , 'next-buffer'],
+      \ 'p' : ['bprevious' , 'previous-buffer'],
+      \ '?' : ['Buffers'   , 'fzf-buffer'],
+      \ }
+
+" f is for find and replace
+let g:which_key_map.f = {
+      \ 'name' : '+find & replace' ,
+      \ 'b' : [':Farr --source=vimgrep'    , 'buffer'],
+      \ 'p' : [':Farr --source=rgnvim'     , 'project'],
+      \ }
+
+" s is for search
+let g:which_key_map.s = {
+      \ 'name' : '+search' ,
+      \ '/' : [':History/'              , 'history'],
+      \ ';' : [':Commands'              , 'commands'],
+      \ 'a' : [':Ag'                    , 'text Ag'],
+      \ 'b' : [':BLines'                , 'current buffer'],
+      \ 'B' : [':Buffers'               , 'open buffers'],
+      \ 'c' : [':Commits'               , 'commits'],
+      \ 'C' : [':BCommits'              , 'buffer commits'],
+      \ 'f' : [':Files'                 , 'files'],
+      \ 'g' : [':GFiles'                , 'git files'],
+      \ 'G' : [':GFiles?'               , 'modified git files'],
+      \ 'h' : [':History'               , 'file history'],
+      \ 'H' : [':History:'              , 'command history'],
+      \ 'l' : [':Lines'                 , 'lines'] ,
+      \ 'm' : [':Marks'                 , 'marks'] ,
+      \ 'M' : [':Maps'                  , 'normal maps'] ,
+      \ 'p' : [':Helptags'              , 'help tags'] ,
+      \ 'P' : [':Tags'                  , 'project tags'],
+      \ 's' : [':CocList snippets'      , 'snippets'],
+      \ 'S' : [':Colors'                , 'color schemes'],
+      \ 't' : [':Rg'                    , 'text Rg'],
+      \ 'T' : [':BTags'                 , 'buffer tags'],
+      \ 'w' : [':Windows'               , 'search windows'],
+      \ 'y' : [':Filetypes'             , 'file types'],
+      \ 'z' : [':FZF'                   , 'FZF'],
+      \ }
+
+let g:which_key_map.S = {
+      \ 'name' : '+Session' ,
+      \ 'c' : [':SClose'          , 'Close Session']  ,
+      \ 'd' : [':SDelete'         , 'Delete Session'] ,
+      \ 'l' : [':SLoad'           , 'Load Session']     ,
+      \ 's' : [':Startify'        , 'Start Page']     ,
+      \ 'S' : [':SSave'           , 'Save Session']   ,
+      \ }
+
+" g is for git
+let g:which_key_map.g = {
+      \ 'name' : '+git' ,
+      \ 'a' : [':Git add .'                        , 'add all'],
+      \ 'A' : [':Git add %'                        , 'add current'],
+      \ 'b' : [':Git blame'                        , 'blame'],
+      \ 'B' : [':GBrowse'                          , 'browse'],
+      \ 'c' : [':Git commit'                       , 'commit'],
+      \ 'C' : [':GCheckout'                        , 'checkout'],
+      \ 'd' : [':Git diff'                         , 'diff'],
+      \ 'D' : [':Gdiffsplit'                       , 'diff split'],
+      \ 'g' : [':GGrep'                            , 'git grep'],
+      \ 'G' : [':Gstatus'                          , 'status'],
+      \ 'h' : [':GitGutterLineHighlightsToggle'    , 'highlight hunks'],
+      \ 'H' : ['<Plug>(GitGutterPreviewHunk)'      , 'preview hunk'],
+      \ 'i' : [':Gist -b'                          , 'post gist'],
+      \ 'j' : ['<Plug>(GitGutterNextHunk)'         , 'next hunk'],
+      \ 'k' : ['<Plug>(GitGutterPrevHunk)'         , 'prev hunk'],
+      \ 'l' : [':Git log'                          , 'log'],
+      \ 'm' : ['<Plug>(git-messenger)'             , 'message'],
+      \ 'p' : [':Git push'                         , 'push'],
+      \ 'P' : [':Git pull'                         , 'pull'],
+      \ 'r' : [':GRemove'                          , 'remove'],
+      \ 's' : ['<Plug>(GitGutterStageHunk)'        , 'stage hunk'],
+      \ 'S' : [':!git status'                      , 'status'],
+      \ 't' : [':GitGutterSignsToggle'             , 'toggle signs'],
+      \ 'u' : ['<Plug>(GitGutterUndoHunk)'         , 'undo hunk'],
+      \ 'v' : [':GV'                               , 'view commits'],
+      \ 'V' : [':GV!'                              , 'view buffer commits'],
+      \ }
+
+" l is for language server protocol
+let g:which_key_map.l = {
+      \ 'name' : '+lsp' ,
+      \ '.' : [':CocConfig'                          , 'config'],
+      \ ';' : ['<Plug>(coc-refactor)'                , 'refactor'],
+      \ 'a' : ['<Plug>(coc-codeaction)'              , 'line action'],
+      \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'selected action'],
+      \ 'b' : [':CocNext'                            , 'next action'],
+      \ 'B' : [':CocPrev'                            , 'prev action'],
+      \ 'c' : [':CocList commands'                   , 'commands'],
+      \ 'd' : ['<Plug>(coc-definition)'              , 'definition'],
+      \ 'D' : ['<Plug>(coc-declaration)'             , 'declaration'],
+      \ 'e' : [':CocList extensions'                 , 'extensions'],
+      \ 'f' : ['<Plug>(coc-format-selected)'         , 'format selected'],
+      \ 'F' : ['<Plug>(coc-format)'                  , 'format'],
+      \ 'h' : ['<Plug>(coc-float-hide)'              , 'hide'],
+      \ 'i' : ['<Plug>(coc-implementation)'          , 'implementation'],
+      \ 'I' : [':CocList diagnostics'                , 'diagnostics'],
+      \ 'j' : ['<Plug>(coc-float-jump)'              , 'float jump'],
+      \ 'l' : ['<Plug>(coc-codelens-action)'         , 'code lens'],
+      \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'next diagnostic'],
+      \ 'N' : ['<Plug>(coc-diagnostic-next-error)'   , 'next error'],
+      \ 'o' : ['<Plug>(coc-openlink)'                , 'open link'],
+      \ 'O' : [':CocList outline'                    , 'outline'],
+      \ 'p' : ['<Plug>(coc-diagnostic-prev)'         , 'prev diagnostic'],
+      \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'   , 'prev error'],
+      \ 'q' : ['<Plug>(coc-fix-current)'             , 'quickfix'],
+      \ 'r' : ['<Plug>(coc-rename)'                  , 'rename'],
+      \ 'R' : ['<Plug>(coc-references)'              , 'references'],
+      \ 's' : [':CocList -I symbols'                 , 'references'],
+      \ 'S' : [':CocList snippets'                   , 'snippets'],
+      \ 't' : ['<Plug>(coc-type-definition)'         , 'type definition'],
+      \ 'u' : [':CocListResume'                      , 'resume list'],
+      \ 'U' : [':CocUpdate'                          , 'update CoC'],
+      \ 'v' : [':Vista!!'                            , 'tag viewer'],
+      \ 'z' : [':CocDisable'                         , 'disable CoC'],
+      \ 'Z' : [':CocEnable'                          , 'enable CoC'],
+      \ }
+
+" t is for terminal
+let g:which_key_map.t = {
+      \ 'name' : '+terminal' ,
+      \ ';' : [':FloatermNew --wintype=popup --height=6'        , 'terminal'],
+      \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
+      \ 'g' : [':FloatermNew lazygit'                           , 'git'],
+      \ 'd' : [':FloatermNew lazydocker'                        , 'docker'],
+      \ 'n' : [':FloatermNew node'                              , 'node'],
+      \ 'N' : [':FloatermNew nnn'                               , 'nnn'],
+      \ 'p' : [':FloatermNew python'                            , 'python'],
+      \ 'm' : [':FloatermNew lazynpm'                           , 'npm'],
+      \ 'r' : [':FloatermNew ranger'                            , 'ranger'],
+      \ 't' : [':FloatermToggle'                                , 'toggle'],
+      \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
+      \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
+      \ }
+
+" w is for wiki
+let g:which_key_map.w = {
+      \ 'name' : '+wiki' ,
+      \ 'w' : ['<Plug>VimwikiIndex'                              , 'vimwiki index'],
+      \ 'n' : ['<plug>(wiki-open)'                              , 'vimwiki open'],
+      \ 'j' : ['<plug>(wiki-journal)'                              , 'vimwiki journal'],
+      \ 'R' : ['<plug>(wiki-reload)'                              , 'vimwiki reload'],
+      \ 'c' : ['<plug>(wiki-code-run)'                              , 'vimwiki code run'],
+      \ 'b' : ['<plug>(wiki-graph-find-backlinks)'                              , 'ncdu'],
+      \ 'g' : ['<plug>(wiki-graph-in)'                              , 'ncdu'],
+      \ 'G' : ['<plug>(wiki-graph-out)'                              , 'ncdu'],
+      \ 'l' : ['<plug>(wiki-link-toggle)'                              , 'ncdu'],
+      \ 'd' : ['<plug>(wiki-page-delete)'                              , 'ncdu'],
+      \ 'r' : ['<plug>(wiki-page-rename)'                              , 'ncdu'],
+      \ 't' : ['<plug>(wiki-page-toc)'                              , 'ncdu'],
+      \ 'T' : ['<plug>(wiki-page-toc-local)'                              , 'ncdu'],
+      \ 'e' : ['<plug>(wiki-export)'                              , 'ncdu'],
+      \ 'u' : ['<plug>(wiki-list-uniq)'                              , 'ncdu'],
+      \ 'U' : ['<plug>(wiki-list-uniq-local)'                              , 'ncdu'],
+      \ }
+call which_key#register('<Space>', "g:which_key_map")
+
+"Vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
+
+" Vim Hexokinase
+let g:Hexokinase_refreshEvents = ['InsertLeave']
+
+let g:Hexokinase_optInPatterns = [
+      \     'full_hex',
+      \     'triple_hex',
+      \     'rgb',
+      \     'rgba',
+      \     'hsl',
+      \     'hsla',
+      \     'colour_names'
+      \ ]
+
+let g:Hexokinase_highlighters = ['backgroundfull']
+
+" Reenable hexokinase on enter
+autocmd VimEnter * HexokinaseTurnOn
+
+" remove ranger default key
+let g:ranger_map_keys=0
+
+" Easy Motion
+map <leader><leader>. <Plug>(easymotion-repeat)
+map <leader><leader>f <Plug>(easymotion-overwin-f)
+map <leader><leader>j <Plug>(easymotion-overwin-line)
+map <leader><leader>k <Plug>(easymotion-overwin-line)
+map <leader><leader>w <Plug>(easymotion-overwin-w)
+
+" Git Gutter
+highlight GitGutterAdd guifg=#009900 ctermfg=Green
+highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
+highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
+nmap ) <Plug>(GitGutterNextHunk)
+nmap ( <Plug>(GitGutterPrevHunk)
+let g:gitgutter_enabled = 1
+let g:gitgutter_map_keys = 0
+let g:gitgutter_highlight_linenrs = 1
+
+"Commenting
+function! Comment()
+  if (mode() == "n" )
+    execute "Commentary"
+  else
+    execute "'<,'>Commentary"
+  endif
+endfunction
+vnoremap <silent> <space>/ :call Comment()
+
+augroup highlight_yank
+  autocmd!
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
+
+let g:python_host_prog = '/usr/bin/python3.8'
+let g:one_allow_italics = 1
+
+" nvim-lsp
+:lua << EOF
+local nvim_lsp = require('nvim_lsp')
+
+local on_attach = function(_, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  require'diagnostic'.on_attach()
+  require'completion'.on_attach()
+
+-- Mappings.
+local opts = { noremap=true, silent=true }
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
+  end
+
+  local servers = {'gopls', 'rust_analyzer', 'sumneko_lua', 'tsserver', 'vimls', 'pyls_ms', 'jsonls', 'clangd', 'dartls'}
+  for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    }
+  end
+EOF
+
+  " setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+  " autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
+  " autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+  " autocmd BufWritePre *.cpp lua vim.lsp.buf.formatting_sync(nil, 1000)
+  " autocmd BufWritePre *.dart lua vim.lsp.buf.formatting_sync(nil, 1000)
+
+  " Completions
+  " ~~~~~~~~~~~
+
+  " Use <Tab> and <S-Tab> to navigate through popup menu
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " Set completeopt to have a better completion experience
+  set completeopt=menuone,noinsert,noselect
+
+  " autocmd BufEnter * lua require'completion'.on_attach()
+  " autocmd BufEnter * lua require'diagnostic'.on_attach()
+
+  let g:diagnostic_enable_virtual_text = 1
+
+  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+  " Navigation
+  " ~~~~~~~~~~
+
+  " Use `[d` and `]d` for navigate diagnostics
+  nnoremap <silent> ]d :NextDiagnostic<CR>
+  nnoremap <silent> [d :PrevDiagnostic<CR>
+  nnoremap <silent> <leader>do :OpenDiagnostic<CR>
+
+  " vim-vsnip
+  " Expand or jump
+  imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+  smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+  "
+  " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+  " See https://github.com/hrsh7th/vim-vsnip/pull/50
+  nmap        s   <Plug>(vsnip-select-text)
+  xmap        s   <Plug>(vsnip-select-text)
+  smap        s   <Plug>(vsnip-select-text)
+  nmap        S   <Plug>(vsnip-cut-text)
+  xmap        S   <Plug>(vsnip-cut-text)
+  smap        S   <Plug>(vsnip-cut-text)
+
+  " If you want to use snippet for multiple filetypes, you can `g:vsip_filetypes` for it.
+  let g:vsnip_filetypes = {}
+  let g:vsnip_filetypes.javascriptreact = ['javascript']
+  let g:vsnip_filetypes.typescriptreact = ['typescript']
+
+  " Disable ex mode
+  nnoremap Q <Nop>
+
+  " .............................................................................
+  " lambdalisue/fern.vim
+  " .............................................................................
+
+  " Disable netrw.
+  let g:loaded_netrw  = 1
+  let g:loaded_netrwPlugin = 1
+  let g:loaded_netrwSettings = 1
+  let g:loaded_netrwFileHandlers = 1
+
+  augroup my-fern-hijack
+    autocmd!
+    autocmd BufEnter * ++nested call s:hijack_directory()
+  augroup END
+
+  function! s:hijack_directory() abort
+    let path = expand('%:p')
+    if !isdirectory(path)
+      return
+    endif
+    bwipeout %
+    execute printf('Fern %s', fnameescape(path))
+  endfunction
+
+  " Custom settings and mappings.
+  let g:fern#disable_default_mappings = 1
+
+  noremap <silent> <Leader>f :Fern . -drawer -reveal=% -toggle -width=35<CR><C-w>=
+
+  function! FernInit() abort
+    nmap <buffer><expr>
+          \ <Plug>(fern-my-open-expand-collapse)
+          \ fern#smart#leaf(
+          \   "\<Plug>(fern-action-open:select)",
+          \   "\<Plug>(fern-action-expand)",
+          \   "\<Plug>(fern-action-collapse)",
+          \ )
+    nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
+    nmap <buffer> <2-LeftMouse> <Plug>(fern-my-open-expand-collapse)
+    nmap <buffer> n <Plug>(fern-action-new-path)
+    nmap <buffer> d <Plug>(fern-action-remove)
+    nmap <buffer> m <Plug>(fern-action-move)
+    nmap <buffer> M <Plug>(fern-action-rename)
+    nmap <buffer> h <Plug>(fern-action-hidden-toggle)
+    nmap <buffer> r <Plug>(fern-action-reload)
+    nmap <buffer> k <Plug>(fern-action-mark-toggle)
+    nmap <buffer> b <Plug>(fern-action-open:split)
+    nmap <buffer> v <Plug>(fern-action-open:vsplit)
+    nmap <buffer><nowait> < <Plug>(fern-action-leave)
+    nmap <buffer><nowait> > <Plug>(fern-action-enter)
+  endfunction
+
+  augroup FernGroup
+    autocmd!
+    autocmd FileType fern call FernInit()
+  augroup END
+
+  " Use tab as trigger key
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ completion#trigger_completion()
+
+  " Chain completion list
+  let g:completion_chain_complete_list = {
+        \ 'default' : {
+        \   'default': [
+        \       {'complete_items': ['lsp', 'snippet', 'buffers']},
+        \       {'mode': '<c-p>'},
+        \       {'mode': '<c-n>'}],
+        \   'comment': [],
+        \   'string' : [{'complete_items': ['path']}]}}
