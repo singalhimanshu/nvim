@@ -58,7 +58,12 @@ let g:gruvbox_material_enable_italic = 1
 " let g:vim_monokai_tasty_italic = 1
 " colorscheme vim-monokai-tasty
 let ayucolor="mirage"
-colorscheme gruvbox-material
+let g:gruvbox_bold=0
+let g:gruvbox_invert_selection=0
+let g:gruvbox_invert_signs=1
+let g:gruvbox_italic=1
+" colorscheme gruvbox-material
+colorscheme gruvbox
 
 " Simple movement with alt key
 nnoremap <C-s> :w<cr>
@@ -105,7 +110,7 @@ let airline#extensions#wordcount#enabled = 1
 let g:airline_powerline_fonts = 1
 call airline#parts#define_function('lsp', 'LspStatus')
 let g:airline_section_y = airline#section#create_right(['lsp'])
-let g:airline_theme = 'gruvbox_material'
+" let g:airline_theme = 'ayu_mirage'
 
 " next buffer
 nnoremap <silent> <TAB> :bnext<CR>
@@ -152,32 +157,12 @@ augroup END
 let g:python_host_prog = '/usr/bin/python3.8'
 let g:one_allow_italics = 1
 
-
-"nvim-lsp
-lua require('lsp_config')
-
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <leader>ac    <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-"nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <leader>ai <cmd>lua organize_imports(300)<CR>
-nnoremap <leader>as <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <leader>af <cmd>lua quickfix(300)<CR>
-
 " Autoformat while save
 autocmd BufWritePost * lua vim.lsp.buf.formatting()
 
 " diagnostic.nvim
 let g:diagnostic_auto_popup_while_jump = 1
-let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_enable_virtual_text = 0
 let g:diagnostic_virtual_text_prefix = ' '
 nnoremap <leader>do :OpenDiagnostic<CR>
 
@@ -211,6 +196,7 @@ let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_enable_auto_popup = 0
 
 " ultisnip stuff
 let g:UltiSnipsExpandTrigger="<f5>"
@@ -267,18 +253,6 @@ nnoremap <C-s> :update<CR>
 
 " Make the gutters darker than the background.
 "let g:badwolf_darkgutter = 1
-
-" vim-plug
-nnoremap <leader>pi :PlugInstall<CR>
-nnoremap <leader>pc :PlugClean<CR>
-nnoremap <leader>pu :PlugUpdate<CR>
-nnoremap <leader>pU :PlugUpgrade<CR>
-
-"source init.vim
-nnoremap <leader>so :so ~/.config/nvim/init.vim<CR>
-
-" write only when there are changes in buffer
-nnoremap <leader>w :update<CR>
 
 " Yank to end of line
 nnoremap Y y$
@@ -387,3 +361,8 @@ map <Leader>vt :VimuxRunCommand("cft")<CR>
 map <Leader>vq :VimuxCloseRunner<CR>
 map <Leader>vx :VimuxInterruptRunner<CR>
 map <Leader>vm :VimuxPromptCommand("make ")<CR>
+
+"nvim-lsp
+lua require('lsp_config')
+
+tnoremap <Esc> <C-\><C-n>

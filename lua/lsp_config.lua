@@ -112,22 +112,22 @@ lsp.pyls.setup{
   -- on_attach = require'on_attach'.on_attach;
 -- }
 
--- lsp.clangd.setup{
---   on_attach = on_attach;
---   capabilities = {
---     textDocument = {
---       completion = {
---         completionItem = {
---           snippetSupport = true
---         }
---       }
---     }
---   },
---   init_options = {
---     usePlaceholders = true,
---     completeUnimported = true
---   }
--- }
+lsp.clangd.setup{
+  on_attach = on_attach;
+  capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true
+        }
+      }
+    }
+  },
+  init_options = {
+    usePlaceholders = true,
+    completeUnimported = true
+  }
+}
 
 lsp.gopls.setup{
   cmd = {"gopls"};
