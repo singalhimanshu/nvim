@@ -29,7 +29,7 @@ set autoindent                          " Good auto indent
 set laststatus=2                        " Always display the status line
 set number                              " Line numbers
 set relativenumber
-"set cursorline                          " Enable highlighting of the current line
+set cursorline                          " Enable highlighting of the current line
 "set cursorcolumn
 "set showtabline=2                       " Always show tabs
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
@@ -378,3 +378,12 @@ function! s:hijack_directory() abort
   bwipeout %
 endfunction
 
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "40"
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vs :VimuxRunCommand("cfs")<CR>
+map <Leader>vt :VimuxRunCommand("cft")<CR>
+map <Leader>vq :VimuxCloseRunner<CR>
+map <Leader>vx :VimuxInterruptRunner<CR>
+map <Leader>vm :VimuxPromptCommand("make ")<CR>

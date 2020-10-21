@@ -54,7 +54,7 @@ call plug#begin('~/.vim/plugged')
   " To track time
   Plug 'wakatime/vim-wakatime'
   " tpope pluggins
-  Plug 'tpope/vim-commentary'
+  " Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
@@ -119,4 +119,6 @@ call plug#begin('~/.vim/plugged')
   "Plug 'airblade/vim-rooter'
   Plug 'RishabhRD/popfix'
   Plug 'RishabhRD/nvim-lsputils'
+  Plug 'benmills/vimux'
+  Plug 'tomtom/tcomment_vim'
 call plug#end()
