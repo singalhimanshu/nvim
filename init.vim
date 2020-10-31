@@ -43,7 +43,6 @@ set norelativenumber
 
 " easier to see characters when `set paste` is on
 set listchars=tab:→\ ,eol:↲,nbsp:␣,space:·,trail:·,extends:⟩,precedes:⟨
-
 " turn on default spell checking
 "set spell
 
@@ -149,6 +148,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "Plug 'airblade/vim-gitgutter'
   Plug 'morhetz/gruvbox'
   Plug 'gabrielsimoes/cfparser.vim'
+  Plug 'SirVer/ultisnips'
   "Plug 'nielsmadan/harlequin'
   "Plug 'tomasr/molokai'
   call plug#end()
@@ -235,16 +235,7 @@ inoremap <down> <NOP>
 inoremap <left> <NOP>
 inoremap <right> <NOP>
 
-" Map alternatives to the <ESC> key (<C-[> already is) 
-inoremap jj <Esc>
-cnoremap jj <Esc>
-inoremap kk <Esc>
-cnoremap kk <Esc>
-inoremap kj <Esc>
-cnoremap kj <Esc>
+nnoremap <TAB> :bn<CR>
+nnoremap <S-TAB> :bp<CR>
 
-" read personal/private vim configuration (keep last to override)
-set rtp^=~/.vimpersonal
-set rtp^=~/.vimprivate
-
-
+set clipboard=unnamedplus
