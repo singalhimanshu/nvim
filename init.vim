@@ -9,6 +9,7 @@ set wrap                              " Display long lines as just one line
 set encoding=utf-8                      " The encoding displayed
 set pumheight=10                        " Makes popup menu smaller
 set fileencoding=utf-8                  " The encoding written to file
+set fileformat=unix
 set ruler                               " Show the cursor position all the time
 set cmdheight=2                         " More space for displaying messages
 set mouse=a                             " Enable your mouse
@@ -24,6 +25,7 @@ set shiftwidth=2                        " Change the number of space characters 
 set softtabstop=2
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set expandtab                           " Converts tabs to spaces
+set noexpandtab
 set smartindent                         " Makes indenting smart
 set autoindent                          " Good auto indent
 set laststatus=2                        " Always display the status line
@@ -37,9 +39,14 @@ set nobackup                            " This is recommended by coc
 set nowritebackup                       " This is recommended by coc
 set signcolumn=yes                      " Always show the signcolumn, otherwise it would shift the text each time
 set updatetime=300                      " Faster completion
-set clipboard^=unnamed,unnamedplus      " Copy paste between vim and everything else
+set clipboard=unnamedplus      " Copy paste between vim and everything else
+set list
+" set showbreak=↪\ 
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 set incsearch
-set termguicolors
+if (has("termguicolors"))
+  set termguicolors
+endif
 set ignorecase
 set smartcase
 "set colorcolumn=80
@@ -50,7 +57,6 @@ nnoremap <Space> <Nop>
 
 " Colorscheme
 " let g:solarized_visibility='low'
-set background=dark
 " let g:solarized_termcolors=256
 let g:gruvbox_material_background= 'hard'
 let g:gruvbox_material_enable_italic = 1
@@ -59,11 +65,18 @@ let g:gruvbox_material_enable_italic = 1
 " colorscheme vim-monokai-tasty
 let ayucolor="mirage"
 let g:gruvbox_bold=0
-let g:gruvbox_invert_selection=0
+let g:gruvbox_invert_selection='0'
 let g:gruvbox_invert_signs=1
 let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark = 'hard'
 " colorscheme gruvbox-material
-colorscheme gruvbox
+" colorscheme gruvbox
+" colorscheme doom-one
+set background=dark
+let g:gruvbox_italicize_strings = 1
+" colo gruvbox8
+let g:nvcode_termcolors=256
+colo onedark
 
 " Simple movement with alt key
 nnoremap <C-s> :w<cr>
@@ -73,7 +86,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
 " For competitive programming
-autocmd BufNewFile *.cpp -r ~/template.cpp
+" autocmd BufNewFile *.cpp -r ~/template.cpp
 
 " Vertically center document when entering insert mode
 autocmd InsertEnter * norm zz
@@ -83,8 +96,8 @@ vmap < <gv
 vmap > >gv
 
 " fzf.vim
-"nnoremap <C-p> :Files<cr>
-"nnoremap <C-b> :Buffers<cr>
+nnoremap <C-p> :Files<cr>
+nnoremap <C-b> :Buffers<cr>
 let g:fzf_preview_window = ''
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
@@ -105,13 +118,13 @@ let g:floaterm_autoclose=1
 
 " airline
 let airline#extensions#wordcount#enabled = 1
-
 " enable powerline fonts
 let g:airline_powerline_fonts = 1
 call airline#parts#define_function('lsp', 'LspStatus')
 let g:airline_section_y = airline#section#create_right(['lsp'])
+let g:ariline#extensions#tabline#enabled=1
+let g:ariline#extensions#tabline#fnamemode=':t'
 " let g:airline_theme = 'ayu_mirage'
-
 " next buffer
 nnoremap <silent> <TAB> :bnext<CR>
 " previous buffer
@@ -158,7 +171,8 @@ let g:python_host_prog = '/usr/bin/python3.8'
 let g:one_allow_italics = 1
 
 " Autoformat while save
-autocmd BufWritePost * lua vim.lsp.buf.formatting()
+autocmd BufWritePost *.cpp lua vim.lsp.buf.formatting()
+autocmd BufWritePost *.go lua vim.lsp.buf.formatting()
 
 " diagnostic.nvim
 let g:diagnostic_auto_popup_while_jump = 1
@@ -196,7 +210,7 @@ let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_enable_auto_popup = 0
+" let g:completion_enable_auto_popup = 0
 
 " ultisnip stuff
 let g:UltiSnipsExpandTrigger="<f5>"
@@ -205,16 +219,16 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 autocmd BufRead,BufNewFile,BufEnter *.dart UltiSnipsAddFiletypes dart-flutter
 
 " telescope.nvim
-nnoremap <C-p> :lua require'telescope.builtin'.git_files{}<CR>
-nnoremap <leader>ss :lua require'telescope.builtin'.grep_string{}<CR>
-nnoremap <leader>sg :lua require'telescope.builtin'.live_grep{}<CR>
-nnoremap <leader>qf :lua require'telescope.builtin'.quickfix{}<CR>
-nnoremap <leader>ll :lua require'telescope.builtin'.loclist{}<CR>
-nnoremap <leader>of :lua require'telescope.builtin'.oldfiles{}<CR>
-nnoremap <leader>b :lua require'telescope.builtin'.buffers{}<CR>
-nnoremap <leader>ch :lua require'telescope.builtin'.command_history{}<CR>
-nnoremap <silent> gr <cmd>lua require'telescope.builtin'.lsp_references{}<CR>
-nnoremap <leader>gc :lua require'telescope.git'.checkout{}<CR>
+" nnoremap <C-p> :lua require'telescope.builtin'.git_files{}<CR>
+" nnoremap <leader>ss :lua require'telescope.builtin'.grep_string{}<CR>
+" nnoremap <leader>sg :lua require'telescope.builtin'.live_grep{}<CR>
+" nnoremap <leader>qf :lua require'telescope.builtin'.quickfix{}<CR>
+" nnoremap <leader>ll :lua require'telescope.builtin'.loclist{}<CR>
+" nnoremap <leader>of :lua require'telescope.builtin'.oldfiles{}<CR>
+" nnoremap <leader>b :lua require'telescope.builtin'.buffers{}<CR>
+" nnoremap <leader>ch :lua require'telescope.builtin'.command_history{}<CR>
+" nnoremap <silent> gr <cmd>lua require'telescope.builtin'.lsp_references{}<CR>
+" nnoremap <leader>gc :lua require'telescope.git'.checkout{}<CR>
 
 
 
@@ -366,3 +380,46 @@ map <Leader>vm :VimuxPromptCommand("make ")<CR>
 lua require('lsp_config')
 
 tnoremap <Esc> <C-\><C-n>
+
+" solves some weird bug
+lua require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
+
+set noexpandtab
+au BufNewFile,BufRead Makefile set ts=4 sw=4 noet
+
+hi Comment cterm=italic
+let g:nvcode_hide_endofbuffer=1
+let g:nvcode_terminal_italics=1
+let g:nvcode_termcolors=256
+
+" syntax on
+" colorscheme felipec
+
+
+" checks if your terminal has 24-bit color support
+if (has("termguicolors"))
+    set termguicolors
+		" hi Normal guifg=#ffffff ctermfg=231 guibg=#000000 ctermbg=16 gui=NONE cterm=NONE
+endif
+"
+" Magic buffer-picking mode
+nnoremap <silent> <C-b> :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
+" Move to previous/next
+nnoremap <silent>    <A-,> :BufferPrevious<CR>
+nnoremap <silent>    <A-.> :BufferNext<CR>
+" Re-order to previous/next
+nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
+nnoremap <silent>    <A->> :BufferMoveNext<CR>
+" Goto buffer in position...
+nnoremap <silent>    <A-1> :BufferGoto 1<CR>
+nnoremap <silent>    <A-2> :BufferGoto 2<CR>
+nnoremap <silent>    <A-3> :BufferGoto 3<CR>
+nnoremap <silent>    <A-4> :BufferGoto 4<CR>
+nnoremap <silent>    <A-5> :BufferGoto 5<CR>
+nnoremap <silent>    <A-6> :BufferGoto 6<CR>
+nnoremap <silent>    <A-7> :BufferGoto 7<CR>
+nnoremap <silent>    <A-8> :BufferGoto 8<CR>
+nnoremap <silent>    <A-9> :BufferLast<CR>
