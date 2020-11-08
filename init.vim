@@ -17,15 +17,15 @@ set splitbelow                          " Horizontal splits will automatically b
 set splitright                          " Vertical splits will automatically be to the right
 set t_Co=256                            " Support 256 colors
 set conceallevel=0                      " So that I can see `` in markdown files
-set tabstop=2                           " Insert 2 spaces for a tab
+set tabstop=4                           " Insert 2 spaces for a tab
 set nocompatible
 filetype plugin indent on
 set showcmd
-set shiftwidth=2                        " Change the number of space characters inserted for indentation
-set softtabstop=2
+set shiftwidth=4                        " Change the number of space characters inserted for indentation
+set softtabstop=4
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set expandtab                           " Converts tabs to spaces
-set noexpandtab
+" set noexpandtab
 set smartindent                         " Makes indenting smart
 set autoindent                          " Good auto indent
 set laststatus=2                        " Always display the status line
@@ -67,16 +67,17 @@ let ayucolor="mirage"
 let g:gruvbox_bold=0
 let g:gruvbox_invert_selection='0'
 let g:gruvbox_invert_signs=1
-let g:gruvbox_italic=1
+let g:gruvbox_italic=0
 let g:gruvbox_contrast_dark = 'hard'
 " colorscheme gruvbox-material
 " colorscheme gruvbox
-" colorscheme doom-one
 set background=dark
-let g:gruvbox_italicize_strings = 1
-" colo gruvbox8
+" colorscheme badwolf
+let g:gruvbox_italicize_strings = 0
+colo gruvbox
+" colo doom-one
 let g:nvcode_termcolors=256
-colo onedark
+" colo onedark
 
 " Simple movement with alt key
 nnoremap <C-s> :w<cr>
@@ -163,7 +164,7 @@ vnoremap <silent> <space>/ :call Comment()
 " Highlight Yank
 augroup highlight_yank
   autocmd!
-  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout=40})
 augroup END
 
 
@@ -172,7 +173,7 @@ let g:one_allow_italics = 1
 
 " Autoformat while save
 autocmd BufWritePost *.cpp lua vim.lsp.buf.formatting()
-autocmd BufWritePost *.go lua vim.lsp.buf.formatting()
+" autocmd BufWritePost *.go lua vim.lsp.buf.formatting()
 
 " diagnostic.nvim
 let g:diagnostic_auto_popup_while_jump = 1
@@ -247,13 +248,14 @@ nnoremap <leader>. :e ~/.config/nvim/init.vim<CR>
 " vim-go
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
 
 " Disable 'K' for godoc, we're using it for lsp hover
 let g:go_doc_keywordprg_enabled=0
 
 " Use nvim lsp to handle jumping around
 let g:go_def_mapping_enabled=0
-let g:go_gopls_enabled=0
+let g:go_gopls_enabled=1
 "let g:go_textobj_enabled=0
 
 "nvim-colorizer
@@ -382,9 +384,8 @@ lua require('lsp_config')
 tnoremap <Esc> <C-\><C-n>
 
 " solves some weird bug
-lua require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
+" lua require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
 
-set noexpandtab
 au BufNewFile,BufRead Makefile set ts=4 sw=4 noet
 
 hi Comment cterm=italic
@@ -397,10 +398,10 @@ let g:nvcode_termcolors=256
 
 
 " checks if your terminal has 24-bit color support
-if (has("termguicolors"))
-    set termguicolors
-		" hi Normal guifg=#ffffff ctermfg=231 guibg=#000000 ctermbg=16 gui=NONE cterm=NONE
-endif
+" if (has("termguicolors"))
+"     set termguicolors
+" 		hi Normal guifg=#ffffff ctermfg=231 guibg=#000000 ctermbg=16 gui=NONE cterm=NONE
+" endif
 "
 " Magic buffer-picking mode
 nnoremap <silent> <C-b> :BufferPick<CR>
@@ -423,3 +424,19 @@ nnoremap <silent>    <A-6> :BufferGoto 6<CR>
 nnoremap <silent>    <A-7> :BufferGoto 7<CR>
 nnoremap <silent>    <A-8> :BufferGoto 8<CR>
 nnoremap <silent>    <A-9> :BufferLast<CR>
+
+" --- vim go (polyglot) settings.
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_auto_sameids = 1

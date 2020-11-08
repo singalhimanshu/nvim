@@ -206,6 +206,10 @@ lsp.jsonls.setup {
   on_attach = on_attach;
 }
 
+lsp.tsserver.setup {
+  on_attach = on_attach;
+}
+
 local strategy = { 'exact', 'substring', 'fuzzy' }
 vim.g.completion_matching_strategy_list = strategy
 vim.g.diagnostic_enable_virtual_text = 1
