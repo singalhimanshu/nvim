@@ -1,0 +1,3 @@
+# Vimwiki
+
+  - [ProjectIdeas](ProjectIdeas)
