@@ -7,7 +7,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-
+    
     " Better Comments
     Plug 'tpope/vim-commentary'
     " Change dates fast
@@ -169,6 +169,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Debugging
     Plug 'dart-lang/dart-vim-plugin'
     Plug 'gruvbox-community/gruvbox'
+    Plug 'mhartington/oceanic-next'
+    Plug 'chriskempson/base16-vim'
+    Plug 'rust-lang/rust.vim'
   endif
 
 call plug#end()

@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =7
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/himanshu/.config/tmux'
 let g:netrw_dirhist_7='/home/himanshu/Downloads'
 let g:netrw_dirhist_6='/home/himanshu/go/src/github.com/singalhimanshu/taskgo/.git'
 let g:netrw_dirhist_5='/home/himanshu/Desktop/repos/microservice-go/product-api'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_2='/home/himanshu/Desktop/repos/go-learning'
 let g:netrw_dirhist_1='/home/himanshu/Desktop/repos/learngo/02-write-your-first-program'
 let g:netrw_dirhist_0='/home/himanshu/Desktop/repos/learngo'
 let g:netrw_dirhist_9='/home/himanshu/Desktop/repos/learngo/01-get-started'
-let g:netrw_dirhist_8='/home/himanshu/Desktop/repos/learngo'
