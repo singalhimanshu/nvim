@@ -172,6 +172,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mhartington/oceanic-next'
     Plug 'chriskempson/base16-vim'
     Plug 'rust-lang/rust.vim'
+    " Plug 'fatih/vim-go'
   endif
 
 call plug#end()

@@ -55,6 +55,7 @@ else
   source $HOME/.config/nvim/plug-config/neovide.vim
   luafile $HOME/.config/nvim/lua/plug-colorizer.lua
   source $HOME/.config/nvim/plug-config/vimspector.vim
+  source $HOME/.config/nvim/plug-config/quickscope.vim
   " source $HOME/.config/nvim/plug-config/sneak.vim
   " source $HOME/.config/nvim/plug-config/rainbow.vim
   " source $HOME/.config/nvim/plug-config/illuminate.vim
@@ -62,7 +63,6 @@ else
   " source $HOME/.config/nvim/plug-config/xtabline.vim
   " source $HOME/.config/nvim/plug-config/ale.vim
 endif
-source $HOME/.config/nvim/plug-config/quickscope.vim
 
 " Add paths to node and python here
 if !empty(glob("~/.config/nvim/paths.vim"))
