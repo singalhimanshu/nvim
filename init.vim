@@ -3,6 +3,9 @@ let mapleader = " "
 let skip_defaults_vim=1
 set nocompatible
 
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+set colorcolumn=80
+
 "####################### Vi Compatible (~/.exrc) #######################
 
 " automatically indent new lines
@@ -146,9 +149,13 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'PProvost/vim-ps1'
   "Plug 'airblade/vim-gitgutter'
-  Plug 'morhetz/gruvbox'
+  Plug 'gruvbox-community/gruvbox'
   Plug 'gabrielsimoes/cfparser.vim'
   Plug 'SirVer/ultisnips'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'romgrk/barbar.nvim'
   "Plug 'nielsmadan/harlequin'
   "Plug 'tomasr/molokai'
   call plug#end()
@@ -239,3 +246,12 @@ nnoremap <TAB> :bn<CR>
 nnoremap <S-TAB> :bp<CR>
 
 set clipboard=unnamedplus
+
+nnoremap <silent> <C-p> :GFiles<CR>
+nnoremap <silent> <C-t> :Files<CR>
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+nnoremap <silent> <C-b> :Buffers<CR>
+nnoremap <silent> <C-g> :Rg<CR>
+nnoremap <silent> <C-s> :BufferPick<CR>
+
+set termguicolors
