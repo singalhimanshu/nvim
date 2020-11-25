@@ -156,11 +156,15 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'junegunn/fzf.vim'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'romgrk/barbar.nvim'
+  Plug 'vimwiki/vimwiki'
+  Plug 'rust-lang/rust.vim'
+  "Plug 'nvim-treesitter/nvim-treesitter'
   "Plug 'nielsmadan/harlequin'
   "Plug 'tomasr/molokai'
   call plug#end()
 
-  colorscheme gruvbox
+  let g:gruvbox_contrast_dark='hard'
+  colorscheme oak
   "hi Normal ctermbg=NONE " for transparent background
   "colorscheme elflord
   set cursorline
@@ -255,3 +259,12 @@ nnoremap <silent> <C-g> :Rg<CR>
 nnoremap <silent> <C-s> :BufferPick<CR>
 
 set termguicolors
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" RUST
+let g:rustfmt_autosave = 1
+let g:rust_clip_command = 'xclip -selection clipboard'
+
+set runtimepath+=~/.config/nvim/colors

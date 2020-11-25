@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/himanshu/.vimplugins'
 let g:netrw_dirhist_1='/home/himanshu/Dropbox/vimwiki'
 let g:netrw_dirhist_0='/home/himanshu/Dropbox/old_laptop/vimwiki'
 let g:netrw_dirhist_9='/home/himanshu/Dropbox/old_laptop'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_6='/home/himanshu/go/src/github.com/singalhimanshu/taskgo'
 let g:netrw_dirhist_5='/home/himanshu/Desktop/repos/microservice-go/product-api'
 let g:netrw_dirhist_4='/home/himanshu/.doom.d'
 let g:netrw_dirhist_3='/home/himanshu/Desktop/repos/go-hnl'
-let g:netrw_dirhist_2='/home/himanshu/Desktop/repos/go-learning'
