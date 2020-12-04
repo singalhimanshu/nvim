@@ -55,7 +55,7 @@ set noswapfile
 set nowritebackup
 
 " keep the terminal title updated
-set laststatus=0
+set laststatus=2
 set icon
 
 " center the cursor always on the screen
@@ -150,21 +150,42 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'PProvost/vim-ps1'
   "Plug 'airblade/vim-gitgutter'
   Plug 'gruvbox-community/gruvbox'
+  Plug 'tomasr/molokai'
   Plug 'gabrielsimoes/cfparser.vim'
   Plug 'SirVer/ultisnips'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'romgrk/barbar.nvim'
+  " Plug 'romgrk/barbar.nvim'
   Plug 'vimwiki/vimwiki'
   Plug 'rust-lang/rust.vim'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'sainnhe/sonokai'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-rhubarb'
+  Plug 'tpope/vim-repeat'
+  Plug 'dart-lang/dart-vim-plugin'
+  Plug 'thosakwe/vim-flutter'
+  Plug 'dense-analysis/ale'
+  Plug 'itchyny/lightline.vim'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'mattn/emmet-vim'
+  Plug 'turbio/bracey.vim'
+  Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
   "Plug 'nvim-treesitter/nvim-treesitter'
   "Plug 'nielsmadan/harlequin'
   "Plug 'tomasr/molokai'
   call plug#end()
 
   let g:gruvbox_contrast_dark='hard'
-  colorscheme oak
+  let g:gruvbox_invert_selection='0'
+  colorscheme gruvbox
   "hi Normal ctermbg=NONE " for transparent background
   "colorscheme elflord
   set cursorline
@@ -180,6 +201,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:go_gopls_enabled = 1
   "let g:go_gopls_analyses = { 'composites' : v:false }
   au FileType go nmap <leader>t :GoTest!<CR>
+  au FileType go nmap <leader>gtf :GoTestFunc!<CR>
   au FileType go nmap <leader>v :GoVet!<CR>
   au FileType go nmap <leader>b :GoBuild!<CR>
   au FileType go nmap <leader>i :GoInstall!<CR>
@@ -195,9 +217,6 @@ autocmd vimleavepre *.rs !rustfmt %
 " [some thing]() -> [some thing](https://duck.com/lite?kae=t&q=some thing)
 " s,/foo,/bar,g
 autocmd vimleavepre *.md !perl -p -i -e 's,\[([^\]]+)\]\(\),[\1](https://duck.com/lite?kd=-1&kp=-1&q=\1),g' %
-
-" fill in anything beginning with @ with a link to twitch to it
-autocmd vimleavepre *.md !perl -p -i -e 's, @(\w+), [\\@\1](https://twitch.tv/\1),g' %
 
 " if you are gonna visual, might as well...
 vmap < <gv
@@ -267,4 +286,58 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 let g:rustfmt_autosave = 1
 let g:rust_clip_command = 'xclip -selection clipboard'
 
-set runtimepath+=~/.config/nvim/colors
+set t_Co=256
+let g:sonokai_style = 'atlantis'
+let g:rehash256 = 1
+"colorscheme molokai
+
+set splitbelow
+set splitright
+
+let g:dart_format_on_save = 1
+
+nnoremap Y y$
+
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
+augroup END
+
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>p :cprevious<CR>
+
+nmap <silent> <C-e> <Plug>(ale_next_wrap)
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? 'OK' : printf(
+        \   '%d⨉ %d⚠ ',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+set statusline+=%=
+set statusline+=\ %{LinterStatus()}
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+nmap ]c <Plug>(GitGutterNextHunk)
+nmap [c <Plug>(GitGutterPrevHunk)
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+
+let g:mkdp_auto_start = 0
+
+let g:user_emmet_leader_key='<C-Y>'
