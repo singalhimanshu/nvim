@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/himanshu/repos'
+let g:netrw_dirhist_7='/home/himanshu/repos/cpp-coursework'
+let g:netrw_dirhist_6='/home/himanshu/repos'
+let g:netrw_dirhist_5='/home/himanshu/go/src/github.com/singalhimanshu/product-api'
+let g:netrw_dirhist_4='/'
+let g:netrw_dirhist_3='/home/himanshu/repos/quick-lint-js'
+let g:netrw_dirhist_2='/home/himanshu/.config/nvim'
+let g:netrw_dirhist_1='/home/himanshu/repos/taskgo'
