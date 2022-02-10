@@ -6,6 +6,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'dense-analysis/ale', { 'tag': 'v3.1.0' }
 " Plug 'dense-analysis/ale'
 Plug 'quick-lint/quick-lint-js', {'rtp': 'plugin/vim/quick-lint-js.vim'}
+" shows numbers for tab
 Plug 'mkitt/tabline.vim'
 Plug 'sbdchd/neoformat'
 Plug 'tomtom/tcomment_vim'
@@ -16,22 +17,24 @@ Plug 'tyru/open-browser.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 " nvim-cmp
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
-Plug 'hrsh7th/cmp-calc'
-Plug 'hrsh7th/cmp-path'
+" Plug 'hrsh7th/nvim-cmp'
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/cmp-vsnip'
+" Plug 'hrsh7th/vim-vsnip'
+" Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
+" Plug 'hrsh7th/cmp-calc'
+" Plug 'hrsh7th/cmp-path'
 " lsp
-Plug 'neovim/nvim-lspconfig'
-Plug 'ray-x/lsp_signature.nvim'
-Plug 'seblj/nvim-echo-diagnostics'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'akinsho/flutter-tools.nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'ray-x/lsp_signature.nvim'
+" Plug 'seblj/nvim-echo-diagnostics'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" Plug 'akinsho/flutter-tools.nvim'
 " Plug 'vhyrro/neorg'
 Plug 'lewis6991/gitsigns.nvim'
 " Plug 'mfussenegger/nvim-dap'
@@ -41,29 +44,32 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 " Plug 'hoob3rt/lualine.nvim'
 " Plug 'nvim-lua/lsp-status.nvim'
-Plug 'tjdevries/gruvbuddy.nvim'
-Plug 'tjdevries/colorbuddy.nvim'
+" Plug 'tjdevries/gruvbuddy.nvim'
+" Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tpope/vim-vinegar'
-Plug 'srcery-colors/srcery-vim'
-Plug 'ishan9299/nvim-solarized-lua'
+" Plug 'srcery-colors/srcery-vim'
+" Plug 'ishan9299/nvim-solarized-lua'
 " note taking
 " Plug 'vimwiki/vimwiki'
 " Plug 'oberblastmeister/neuron.nvim'
 " Plug 'oberblastmeister/neuron.nvim', { 'branch': 'unstable' }
 " Plug 'mfussenegger/nvim-lint'
-Plug 'singalhimanshu/nvim-lint', { 'branch': 'quick_lint_js' }
-Plug 'vim-test/vim-test'
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+" Plug 'singalhimanshu/nvim-lint', { 'branch': 'quick_lint_js' }
+" Plug 'vim-test/vim-test'
+" Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 " Plug 'f-person/git-blame.nvim'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+" Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Plug 'rakr/vim-one'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'AckslD/nvim-neoclip.lua'
-Plug 'posva/vim-vue'
-Plug 'whatsthatsmell/codesmell_dark.vim'
-Plug 'onsails/lspkind-nvim'
-Plug 'nvim-neorg/neorg'
-Plug 'navarasu/onedark.nvim'
+" Plug 'posva/vim-vue'
+" Plug 'onsails/lspkind-nvim'
+" Plug 'nvim-neorg/neorg'
+" Plug 'navarasu/onedark.nvim'
+" Plug 'ellisonleao/gruvbox.nvim'
+" Plug 'rktjmp/lush.nvim'
+" Plug 'RishabhRD/gruvy'
+Plug 'ojroques/nvim-hardline'
 call plug#end()
 
 " experimental always center cursor
@@ -136,14 +142,20 @@ nnoremap <leader>so :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>y :%y+<CR>
 vnoremap <leader>y "+y
 
+nnoremap <leader><leader> :Files<CR>
+
+
+lua require('hardline').setup {}
+
 set t_Co=256
 set background=dark
 " lua require('colorbuddy').colorscheme('gruvbuddy')
-let g:onedark_style = 'darker'
-colorscheme onedark
+" let g:onedark_style = 'darker'
+" colorscheme onedark
+"colorscheme gruvbox
 " colorscheme one
 " highlight Comment gui=none cterm=none
-" colorscheme PaperColor
+colorscheme PaperColor
 " colorscheme codesmell_dark
 " colorscheme tango-dark
 " colorscheme solarized
@@ -153,12 +165,12 @@ colorscheme onedark
 " colorscheme modus-vivendi
 
 " fzf
-" let g:fzf_preview_window = []
-" let g:fzf_buffers_jump = 1
-" let g:fzf_layout = { 'down': '20%' }
-" nnoremap <leader><leader> :Files<CR>
-" nnoremap <leader>fg :Rg<CR>
-" nnoremap <leader>fb :Buffers<CR>
+let g:fzf_preview_window = []
+let g:fzf_buffers_jump = 1
+let g:fzf_layout = { 'down': '20%' }
+nnoremap <leader><leader> :Files<CR>
+nnoremap <leader>fg :Rg<CR>
+nnoremap <leader>fb :Buffers<CR>
 " " search for man pages
 " command! -nargs=? Apropos call fzf#run(fzf#wrap({'source': 'man -k '.shellescape(<q-args>).' | cut -d " " -f 1', 'sink': 'tab Man', 'options': ['--preview', 'MANPAGER=cat MANWIDTH='.(&columns/2-4).' man {}']}))
 " nnoremap <F1> :Apropos<CR>
@@ -207,18 +219,6 @@ let g:ale_linters_explicit = v:true
 let g:ale_set_signs = v:false
 " let b:ale_linters = {'javascript': ['quick-lint-js']}
 
-let g:leetcode_browser = 'firefox'
-nnoremap <leader>ll :LeetCodeList<cr>
-nnoremap <leader>lt :LeetCodeTest<cr>
-nnoremap <leader>ls :LeetCodeSubmit<cr>
-nnoremap <leader>li :LeetCodeSignIn<cr>
-
-" align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
 " remove whitespace
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
@@ -266,38 +266,38 @@ autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType gitcommit setlocal complete+=kspell
 
 " format dart code on save
-autocmd BufWritePre *.dart lua vim.lsp.buf.formatting_sync(nil, 1000)
-lua require('lsp')
-lua << EOF
-require("flutter-tools").setup {
-  ui = {
-    border = "rounded",
-  },
-  decorations = {
-    statusline = {
-      app_version = true,
-      device = true,
-    }
-  },
-  debugger = { -- integrate with nvim dap + install dart code debugger
-    enabled = false,
-  },
-  widget_guides = {
-    enabled = true,
-  },
-  dev_log = {
-    open_cmd = "tabedit", -- command to use to open the log buffer
-  },
-  dev_tools = {
-    autostart = false, -- autostart devtools server if not detected
-    auto_open_browser = false, -- Automatically opens devtools in the browser
-  },
-  outline = {
-    open_cmd = "30vnew", -- command to use to open the outline buffer
-    auto_open = false -- if true this will open the outline automatically when it is first populated
-  },
-}
-EOF
+" autocmd BufWritePre *.dart lua vim.lsp.buf.formatting_sync(nil, 1000)
+" lua require('lsp')
+" lua << EOF
+" require("flutter-tools").setup {
+"   ui = {
+"     border = "rounded",
+"   },
+"   decorations = {
+"     statusline = {
+"       app_version = true,
+"       device = true,
+"     }
+"   },
+"   debugger = { -- integrate with nvim dap + install dart code debugger
+"     enabled = false,
+"   },
+"   widget_guides = {
+"     enabled = true,
+"   },
+"   dev_log = {
+"     open_cmd = "tabedit", -- command to use to open the log buffer
+"   },
+"   dev_tools = {
+"     autostart = false, -- autostart devtools server if not detected
+"     auto_open_browser = false, -- Automatically opens devtools in the browser
+"   },
+"   outline = {
+"     open_cmd = "30vnew", -- command to use to open the outline buffer
+"     auto_open = false -- if true this will open the outline automatically when it is first populated
+"   },
+" }
+" EOF
 
 " vimwiki
 " let g:vimwiki_list = [{
@@ -351,165 +351,165 @@ parser_configs.norg_table = {
 }
 EOF
 
-lua <<EOF
-  -- Setup nvim-cmp.
-   local has_words_before = function()
-     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-   end
-
-   local feedkey = function(key, mode)
-     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-   end
-   local cmp = require'cmp'
-   local lspkind = require('lspkind')
-
-   cmp.setup({
-     snippet = {
-       expand = function(args)
-         -- For `vsnip` user.
-         vim.fn["vsnip#anonymous"](args.body)
-
-         -- For `luasnip` user.
-         -- require('luasnip').lsp_expand(args.body)
-
-         -- For `ultisnips` user.
-         -- vim.fn["UltiSnips#Anon"](args.body)
-       end,
-     },
-     mapping = {
-       ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-       ["<Tab>"] = cmp.mapping(function(fallback)
-       if cmp.visible() then
-         cmp.select_next_item()
-       elseif vim.fn["vsnip#available"]() == 1 then
-         feedkey("<Plug>(vsnip-expand-or-jump)", "")
-       elseif has_words_before() then
-         cmp.complete()
-       else
-         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-       end
-     end, { "i", "s" }),
-
-     ["<S-Tab>"] = cmp.mapping(function()
-       if cmp.visible() then
-         cmp.select_prev_item()
-       elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-         feedkey("<Plug>(vsnip-jump-prev)", "")
-       end
-     end, { "i", "s" }),
-       ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-       ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-       ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-       ['<C-Space>'] = cmp.mapping.complete(),
-       ['<C-e>'] = cmp.mapping.close(),
-       ['<CR>'] = cmp.mapping.confirm({
-         behavior = cmp.ConfirmBehavior.Replace,
-         select = true,
-       })
-     },
-     sources = {
-       { name = 'nvim_lsp' },
-       { name = 'treesitter' },
-       { name = 'path' },
-       { name = 'nvim_lsp_document_symbol' },
-
-       -- For vsnip user.
-       { name = 'vsnip' },
-
-       -- For luasnip user.
-       -- { name = 'luasnip' },
-
-       -- For ultisnips user.
-       -- { name = 'ultisnips' },
-
-       { name = 'buffer' },
-       { name = 'neorg' },
-     },
-    formatting = {
-      format = lspkind.cmp_format({with_text = false, max_width = 50})
-    }
-   })
-
-EOF
+" lua <<EOF
+"   -- Setup nvim-cmp.
+"    local has_words_before = function()
+"      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+"      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+"    end
+"
+"    local feedkey = function(key, mode)
+"      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+"    end
+"    local cmp = require'cmp'
+"    local lspkind = require('lspkind')
+"
+"    cmp.setup({
+"      snippet = {
+"        expand = function(args)
+"          -- For `vsnip` user.
+"          vim.fn["vsnip#anonymous"](args.body)
+"
+"          -- For `luasnip` user.
+"          -- require('luasnip').lsp_expand(args.body)
+"
+"          -- For `ultisnips` user.
+"          -- vim.fn["UltiSnips#Anon"](args.body)
+"        end,
+"      },
+"      mapping = {
+"        ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+"        ["<Tab>"] = cmp.mapping(function(fallback)
+"        if cmp.visible() then
+"          cmp.select_next_item()
+"        elseif vim.fn["vsnip#available"]() == 1 then
+"          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+"        elseif has_words_before() then
+"          cmp.complete()
+"        else
+"          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+"        end
+"      end, { "i", "s" }),
+"
+"      ["<S-Tab>"] = cmp.mapping(function()
+"        if cmp.visible() then
+"          cmp.select_prev_item()
+"        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+"          feedkey("<Plug>(vsnip-jump-prev)", "")
+"        end
+"      end, { "i", "s" }),
+"        ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+"        ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+"        ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+"        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+"        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+"        ['<C-Space>'] = cmp.mapping.complete(),
+"        ['<C-e>'] = cmp.mapping.close(),
+"        ['<CR>'] = cmp.mapping.confirm({
+"          behavior = cmp.ConfirmBehavior.Replace,
+"          select = true,
+"        })
+"      },
+"      sources = {
+"        { name = 'nvim_lsp' },
+"        { name = 'treesitter' },
+"        { name = 'path' },
+"        { name = 'nvim_lsp_document_symbol' },
+"
+"        -- For vsnip user.
+"        { name = 'vsnip' },
+"
+"        -- For luasnip user.
+"        -- { name = 'luasnip' },
+"
+"        -- For ultisnips user.
+"        -- { name = 'ultisnips' },
+"
+"        { name = 'buffer' },
+"        { name = 'neorg' },
+"      },
+"     formatting = {
+"       format = lspkind.cmp_format({with_text = false, max_width = 50})
+"     }
+"    })
+"
+" EOF
 
 " autocmd CursorHold * lua require('echo-diagnostics').echo_line_diagnostic()
 
 " telescope
 " Find files using Telescope command-line sugar.
-nnoremap <leader><leader> <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fd <cmd>Telescope lsp_workspace_diagnostics<cr>
-nnoremap <leader>fc <cmd>Telescope flutter commands<cr>
-nnoremap <leader>cc <cmd>Telescope neoclip<cr>
-
-lua << EOF
-require('telescope').setup{
-  defaults = {
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case'
-    },
-    prompt_prefix = "> ",
-    selection_caret = "> ",
-    entry_prefix = "  ",
-    initial_mode = "insert",
-    selection_strategy = "reset",
-    sorting_strategy = "descending",
-    layout_strategy = "horizontal",
-    layout_config = {
-      width = 0.95,
-      height = 0.85,
-      prompt_position = "top",
-      horizontal = {
-        preview_width = function(_, cols, _)
-          if cols > 200 then
-            return math.floor(cols * 0.4)
-          else
-            return math.floor(cols * 0.6)
-          end
-        end,
-      },
-      vertical = {
-        width = 0.9,
-        height = 0.95,
-        preview_height = 0.5,
-      },
-      flex = {
-          horizontal = {
-            preview_width = 0.9,
-          },
-        },
-    },
-    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-    file_ignore_patterns = {},
-    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    winblend = 0,
-    border = {},
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-    color_devicons = true,
-    use_less = true,
-    path_display = {},
-    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
-
-    -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
-  }
-}
-require("telescope").load_extension("flutter")
-EOF
+" nnoremap <leader><leader> <cmd>Telescope find_files<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>fb <cmd>Telescope buffers<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+" nnoremap <leader>fd <cmd>Telescope lsp_workspace_diagnostics<cr>
+" nnoremap <leader>fc <cmd>Telescope flutter commands<cr>
+" nnoremap <leader>cc <cmd>Telescope neoclip<cr>
+"
+" lua << EOF
+" require('telescope').setup{
+"   defaults = {
+"     vimgrep_arguments = {
+"       'rg',
+"       '--color=never',
+"       '--no-heading',
+"       '--with-filename',
+"       '--line-number',
+"       '--column',
+"       '--smart-case'
+"     },
+"     prompt_prefix = "> ",
+"     selection_caret = "> ",
+"     entry_prefix = "  ",
+"     initial_mode = "insert",
+"     selection_strategy = "reset",
+"     sorting_strategy = "descending",
+"     layout_strategy = "horizontal",
+"     layout_config = {
+"       width = 0.95,
+"       height = 0.85,
+"       prompt_position = "top",
+"       horizontal = {
+"         preview_width = function(_, cols, _)
+"           if cols > 200 then
+"             return math.floor(cols * 0.4)
+"           else
+"             return math.floor(cols * 0.6)
+"           end
+"         end,
+"       },
+"       vertical = {
+"         width = 0.9,
+"         height = 0.95,
+"         preview_height = 0.5,
+"       },
+"       flex = {
+"           horizontal = {
+"             preview_width = 0.9,
+"           },
+"         },
+"     },
+"     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+"     file_ignore_patterns = {},
+"     generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+"     winblend = 0,
+"     border = {},
+"     borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+"     color_devicons = true,
+"     use_less = true,
+"     path_display = {},
+"     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+"     file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+"     grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+"     qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+"
+"     -- Developer configurations: Not meant for general override
+"     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+"   }
+" }
+" require("telescope").load_extension("flutter")
+" EOF
 
 " neuron.nvim
 lua << EOF
@@ -550,33 +550,23 @@ EOF
 
 
 " lsp bindings
-nnoremap gD <Cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap gd <Cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap K <Cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <space>wa <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
-nnoremap <space>wr <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
-nnoremap <space>wl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
-nnoremap <space>D <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <space>rn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <space>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <space>ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <space>q <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
-
-" nvim-lint
-lua << EOF
-require('lint').linters_by_ft = {
-  javascript = {'quick-lint-js',},
-  -- markdown = {'vale',},
-  python = {'flake8',},
-}
-EOF
-au BufWritePost * lua require('lint').try_lint()
+" nnoremap gD <Cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap gd <Cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap K <Cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <space>wa <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
+" nnoremap <space>wr <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
+" nnoremap <space>wl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
+" nnoremap <space>D <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap <space>rn <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <space>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+" nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <space>ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+" nnoremap [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <space>q <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+" nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
 
 " lewis6991/gitsigns.nvim
 lua << EOF
@@ -620,39 +610,39 @@ nnoremap <leader>gb :GitBlameToggle<CR>
 " let g:vimwiki_folding='list'
 
 " nvim-neoclip
-lua << EOF
-require('telescope').load_extension('neoclip')
-require('neoclip').setup()
-EOF
+" lua << EOF
+" require('telescope').load_extension('neoclip')
+" require('neoclip').setup()
+" EOF
 
 "neorg
-lua << EOF
-require('neorg').setup {
-    -- Tell Neorg what modules to load
-    load = {
-        ["core.defaults"] = {}, -- Load all the default modules
-        ["core.keybinds"] = { -- Configure core.keybinds
-            config = {
-                default_keybinds = true, -- Generate the default keybinds
-                neorg_leader = "<leader>o" -- This is the default if unspecified
-            }
-        },
-        ["core.norg.concealer"] = {}, -- Allows for use of icons
-        ["core.norg.completion"] = {
-          config = {
-            engine = "nvim-cmp",
-            },
-          },
-        ["core.norg.dirman"] = { -- Manage your directories with Neorg
-            config = {
-                workspaces = {
-                    my_workspace = "~/neorg"
-                }
-            }
-        }
-    },
-}
-EOF
+" lua << EOF
+" require('neorg').setup {
+"     -- Tell Neorg what modules to load
+"     load = {
+"         ["core.defaults"] = {}, -- Load all the default modules
+"         ["core.keybinds"] = { -- Configure core.keybinds
+"             config = {
+"                 default_keybinds = true, -- Generate the default keybinds
+"                 neorg_leader = "<leader>o" -- This is the default if unspecified
+"             }
+"         },
+"         ["core.norg.concealer"] = {}, -- Allows for use of icons
+"         ["core.norg.completion"] = {
+"           config = {
+"             engine = "nvim-cmp",
+"             },
+"           },
+"         ["core.norg.dirman"] = { -- Manage your directories with Neorg
+"             config = {
+"                 workspaces = {
+"                     my_workspace = "~/neorg"
+"                 }
+"             }
+"         }
+"     },
+" }
+" EOF
 
 " nvim-gdb
 " We're going to define single-letter keymaps, so don't try to define them
